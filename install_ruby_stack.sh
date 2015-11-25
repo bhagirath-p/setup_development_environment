@@ -2,6 +2,19 @@
 
 
 #=================================================================================
+# GIT INSTALLATION
+#=================================================================================
+ 
+# Update your system
+sudo apt-get update
+
+# Install git and dependencies
+sudo apt-get install -y build-essential libssl-dev libcurl4-gnutls-dev libexpat1-dev gettext unzip
+sudo apt-get install -y git
+
+
+
+#=================================================================================
 # RUBY INSTALLATION
 #=================================================================================
  
@@ -40,15 +53,4 @@ sudo apt-get update
 sudo apt-get install -y postgresql postgresql-contrib libpq-dev
 
 
-
-#=================================================================================
-# GIT INSTALLATION
-#=================================================================================
- 
-# Update your system
-sudo apt-get update
-
-# Install git and dependencies
-sudo apt-get install -y build-essential libssl-dev libcurl4-gnutls-dev libexpat1-dev gettext unzip
-sudo apt-get install -y git
 
