@@ -52,10 +52,3 @@ sudo apt-get update
 sudo apt-get install -y build-essential libssl-dev libcurl4-gnutls-dev libexpat1-dev gettext unzip
 sudo apt-get install -y git
 
-#=================================================================================
-# SKYPE INSTALLATION
-#=================================================================================
-
-# Update your system
-#sudo apt-get update
-
