@@ -51,6 +51,3 @@ sudo apt-get update
 
 # Install POSTGRESQL and depencies
 sudo apt-get install -y postgresql postgresql-contrib libpq-dev
-
-
-
