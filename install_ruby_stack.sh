@@ -20,8 +20,8 @@ echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bash_profil
 source ~/.bash_profile
 
 # Install rails and set global version
-rbenv install -v 4.2.4
-rbenv global 4.2.4
+rbenv install -v 2.2.2
+rbenv global 2.2.2
 
 # Install bundler gem
 sudo gem install rails
