@@ -11,7 +11,8 @@ update_ubuntu_system () {
 
 update_centos_system () {
 	# Update your system
-	sudo yum update
+	# sudo yum update
+	yum update
 }
 
 
@@ -29,7 +30,8 @@ install_ubuntu_git () {
 install_git_centos () {
 	# Update system
 	update_centos_system
-	sudo yum install -y git
+	# sudo yum install -y git
+	yum install -y git
 }
 
 
@@ -46,7 +48,8 @@ install_ubuntu_postgres () {
 install_centos_postgres () {
 	# Update system
 	update_centos_system
-	sudo yum install -y postgresql94-server
+	# sudo yum install -y postgresql94-server
+	yum install -y postgresql94-server
 	/usr/pgsql-9.4/bin/postgresql94-setup initdb
 	chkconfig postgresql-9.4 on
 	service postgresql-9.4 start
@@ -80,7 +83,8 @@ install_ubuntu_rails () {
 }
 
 install_rails_centos () {
-	sudo yum install -y git-core zlib zlib-devel gcc-c++ patch readline readline-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison curl sqlite-devel
+	# sudo yum install -y git-core zlib zlib-devel gcc-c++ patch readline readline-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison curl sqlite-devel
+	yum install -y git-core zlib zlib-devel gcc-c++ patch readline readline-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison curl sqlite-devel
 	cd
 	git clone git://github.com/sstephenson/rbenv.git .rbenv
 	echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile
@@ -97,8 +101,10 @@ install_rails_centos () {
 	gem install bundler
 	gem install rails
 
-	sudo yum -y install epel-release
-	sudo yum -y install nodejs
+	# sudo yum -y install epel-release
+	yum -y install epel-release
+	# sudo yum -y install nodejs
+	yum -y install nodejs
 }
 
 
@@ -127,7 +133,7 @@ case $OS in
     OS='Linux'
     # echo $OS
     # set_up_rails_stack_linux
-    LINUX_FLAVOUR = $(python -mplatform | grep Ubuntu | echo ubuntu || echo centos)
+    LINUX_FLAVOUR = "python -mplatform | grep Ubuntu | echo ubuntu || echo centos"
     if [ "$LINUX_FLAVOUR" == "linux" ];
     	then
     	if [ "$LINUX_FLAVOUR" == "ubuntu" ];
@@ -138,7 +144,6 @@ case $OS in
 				set_up_rails_stack_centos
 			else
 				echo "Unknown OS. Aborting Installation"
-			fi
 		fi
 	fi
     ;;
