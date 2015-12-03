@@ -2,7 +2,7 @@
 
 
 #=================================================================================
-# LINUX SYSTEM UPDATE
+# SYSTEM UPDATE
 #=================================================================================
 update_ubuntu_system () {
 	# Update your system
@@ -12,12 +12,12 @@ update_ubuntu_system () {
 update_centos_system () {
 	# Update your system
 	# sudo yum update
-	yum update
+	yum -y update
 }
 
 
 #=================================================================================
-# LINUX GIT INSTALLATION
+# GIT INSTALLATION
 #=================================================================================
 install_ubuntu_git () {
 	# Call update_system
@@ -36,7 +36,7 @@ install_git_centos () {
 
 
 #=================================================================================
-# LINUX POSTGRESQL INSTALLATION
+# POSTGRESQL INSTALLATION
 #=================================================================================
 install_ubuntu_postgres () {
 	# Call update_system
@@ -55,9 +55,19 @@ install_centos_postgres () {
 	service postgresql-9.4 start
 }
 
+install_postgres_mac () {
+	brew install postgresql
+
+	# To have launchd start postgresql at login:
+	ln -sfv /usr/local/opt/postgresql/*plist ~/Library/LaunchAgents
+
+	# Then to load postgresql now:
+	launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
+}
+
 
 #=================================================================================
-# LINUX RUBY INSTALLATION
+# RUBY INSTALLATION
 #=================================================================================
 install_ubuntu_rails () {
 	# Call update_system
@@ -83,6 +93,9 @@ install_ubuntu_rails () {
 }
 
 install_rails_centos () {
+	# Update system
+	update_centos_system
+
 	# sudo yum install -y git-core zlib zlib-devel gcc-c++ patch readline readline-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison curl sqlite-devel
 	yum install -y git-core zlib zlib-devel gcc-c++ patch readline readline-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison curl sqlite-devel
 	cd
@@ -107,54 +120,56 @@ install_rails_centos () {
 	yum -y install nodejs
 }
 
-	install_ubuntu_git
-	install_ubuntu_postgres
-	install_ubuntu_rails
+install_rails_mac () {
+	brew install rbenv ruby-build
+
+	# Add rbenv to bash so that it loads every time you open a terminal
+	echo 'if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi' >> ~/.bash_profile
+	source ~/.bash_profile
+
+	# Install Ruby
+	rbenv install 2.2.2
+	rbenv global 2.2.2
+	ruby -v
+
+	# Install rails
+	gem install rails -v 4.2.4
+}
 
 #=================================================================================
 # MAIN INSTALLATION METHODS
 #=================================================================================
-# set_up_rails_stack_linux () {
-# 	install_ubuntu_git
-# 	install_ubuntu_postgres
-# 	install_ubuntu_rails
-# }
+set_up_rails_stack_linux () {
+	install_ubuntu_git
+	install_ubuntu_postgres
+	install_ubuntu_rails
+}
 
-# set_up_rails_stack_centos () {
-# 	install_git_centos
-# 	install_centos_postgres
-# 	install_rails_centos
-# }
+set_up_rails_stack_centos () {
+	install_git_centos
+	install_centos_postgres
+	install_rails_centos
+}
 
+set_up_rails_stack_mac () {
+	install_postgres_mac
+	install_rails_mac
+}
 
 #=================================================================================
 # DETECT OS
 #=================================================================================
-# OS="`uname`"
-# case $OS in
-#   'Linux')
-#     OS='Linux'
-#     echo $OS
-#     # LINUX_FLAVOUR = "`python -mplatform | grep Ubuntu | echo ubuntu || echo centos`"
-#     # echo $LINUX_FLAVOUR
-# 	# if [ "$OS" == "linux" ];
-# 	# 	then
-# 	# 	if [ "$LINUX_FLAVOUR" == "ubuntu" ];
-# 	# 		then
-# 	# 		# set_up_rails_stack_linux
-# 	# 		set_up_rails_stack_linux
-# 	# 	elif [ "$LINUX_FLAVOUR" == "centos" ];
-# 	# 		then
-# 	# 		# set_up_rails_stack_linux
-# 	# 		set_up_rails_stack_centos
-# 	# 	else
-# 	# 		echo "Unknown OS. Aborting Installation"
-# 	# 	fi
-# 	# fi
-#     ;;
-#   'Darwin') 
-#     OS='Mac'
-#     echo $OS
-#     ;;
-#   *) ;;
-# esac
+OS="`uname`"
+case $OS in
+  'Linux')
+    OS='Linux'
+    echo $OS
+    set_up_rails_stack_centos
+    ;;
+  'Darwin') 
+    OS='Mac'
+    echo $OS
+    set_up_rails_stack_mac
+    ;;
+  *) ;;
+esac
