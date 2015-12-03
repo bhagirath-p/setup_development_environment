@@ -56,7 +56,7 @@ install_centos_postgres () {
 }
 
 install_postgres_mac () {
-	brew install postgresql
+	sudo brew install postgresql
 
 	# To have launchd start postgresql at login:
 	ln -sfv /usr/local/opt/postgresql/*plist ~/Library/LaunchAgents
@@ -121,7 +121,7 @@ install_rails_centos () {
 }
 
 install_rails_mac () {
-	brew install rbenv ruby-build
+	sudo brew install rbenv ruby-build
 
 	# Add rbenv to bash so that it loads every time you open a terminal
 	echo 'if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi' >> ~/.bash_profile
