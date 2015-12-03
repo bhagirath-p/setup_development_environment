@@ -107,49 +107,54 @@ install_rails_centos () {
 	yum -y install nodejs
 }
 
+	install_ubuntu_git
+	install_ubuntu_postgres
+	install_ubuntu_rails
 
 #=================================================================================
 # MAIN INSTALLATION METHODS
 #=================================================================================
-set_up_rails_stack_linux () {
-	install_ubuntu_git
-	install_ubuntu_postgres
-	install_ubuntu_rails
-}
+# set_up_rails_stack_linux () {
+# 	install_ubuntu_git
+# 	install_ubuntu_postgres
+# 	install_ubuntu_rails
+# }
 
-set_up_rails_stack_centos () {
-	install_git_centos
-	install_centos_postgres
-	install_rails_centos
-}
+# set_up_rails_stack_centos () {
+# 	install_git_centos
+# 	install_centos_postgres
+# 	install_rails_centos
+# }
 
 
 #=================================================================================
 # DETECT OS
 #=================================================================================
-OS="`uname`"
-case $OS in
-  'Linux')
-    OS='Linux'
-    # echo $OS
-    # set_up_rails_stack_linux
-    LINUX_FLAVOUR = "python -mplatform | grep Ubuntu | echo ubuntu || echo centos"
-    if [ "$LINUX_FLAVOUR" == "linux" ];
-    	then
-    	if [ "$LINUX_FLAVOUR" == "ubuntu" ];
-			then
-				set_up_rails_stack_linux
-			elif [ "$LINUX_FLAVOUR" == "centos" ];
-			then
-				set_up_rails_stack_centos
-			else
-				echo "Unknown OS. Aborting Installation"
-		fi
-	fi
-    ;;
-  'Darwin') 
-    OS='Mac'
-    echo $OS
-    ;;
-  *) ;;
-esac
+# OS="`uname`"
+# case $OS in
+#   'Linux')
+#     OS='Linux'
+#     echo $OS
+#     # LINUX_FLAVOUR = "`python -mplatform | grep Ubuntu | echo ubuntu || echo centos`"
+#     # echo $LINUX_FLAVOUR
+# 	# if [ "$OS" == "linux" ];
+# 	# 	then
+# 	# 	if [ "$LINUX_FLAVOUR" == "ubuntu" ];
+# 	# 		then
+# 	# 		# set_up_rails_stack_linux
+# 	# 		set_up_rails_stack_linux
+# 	# 	elif [ "$LINUX_FLAVOUR" == "centos" ];
+# 	# 		then
+# 	# 		# set_up_rails_stack_linux
+# 	# 		set_up_rails_stack_centos
+# 	# 	else
+# 	# 		echo "Unknown OS. Aborting Installation"
+# 	# 	fi
+# 	# fi
+#     ;;
+#   'Darwin') 
+#     OS='Mac'
+#     echo $OS
+#     ;;
+#   *) ;;
+# esac
