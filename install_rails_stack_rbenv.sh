@@ -164,7 +164,7 @@ case $OS in
   'Linux')
     OS='Linux'
     echo $OS
-    set_up_rails_stack_centos
+    set_up_rails_stack_linux
     ;;
   'Darwin') 
     OS='Mac'
