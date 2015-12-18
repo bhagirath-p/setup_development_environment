@@ -7,11 +7,12 @@
 update_ubuntu_system () {
 	# Update your system
 	sudo apt-get update
+	apt-get update
 }
 
 update_centos_system () {
 	# Update your system
-	# sudo yum update
+	sudo yum update
 	yum -y update
 }
 
@@ -30,8 +31,7 @@ install_ubuntu_git () {
 install_git_centos () {
 	# Update system
 	update_centos_system
-	# sudo yum install -y git
-	yum install -y git
+	sudo yum install -y git
 }
 
 
@@ -48,8 +48,7 @@ install_ubuntu_postgres () {
 install_centos_postgres () {
 	# Update system
 	update_centos_system
-	# sudo yum install -y postgresql94-server
-	yum install -y postgresql94-server
+	sudo yum install -y postgresql94-server
 	/usr/pgsql-9.4/bin/postgresql94-setup initdb
 	chkconfig postgresql-9.4 on
 	service postgresql-9.4 start
@@ -84,20 +83,38 @@ install_ubuntu_rails () {
 	. ~/.bashrc
 
 	# Install rails and set global version
-	rbenv install -v 2.2.3
-	rbenv global 2.2.3
+	# rbenv install -v 2.2.3
+	# rbenv global 2.2.3
 
 	# Install bundler gem
-	gem install rails
-	gem install bundler
+	# gem install rails
+	# gem install bundler
+
+	# Install Ruby
+	if [ $# -gt 0 ] 
+	then
+		rbenv install $1
+		rbenv global $1
+	else
+		rbenv install 2.2.2
+		rbenv global 2.2.2
+	fi
+
+	# Install rails
+	if [ -z "$2" ] 
+	then
+		gem install rails -v $2
+	else
+		gem install rails -v 4.2.4
+	fi
+
 }
 
 install_rails_centos () {
 	# Update system
 	update_centos_system
 
-	# sudo yum install -y git-core zlib zlib-devel gcc-c++ patch readline readline-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison curl sqlite-devel
-	yum install -y git-core zlib zlib-devel gcc-c++ patch readline readline-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison curl sqlite-devel
+	sudo yum install -y git-core zlib zlib-devel gcc-c++ patch readline readline-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison curl sqlite-devel
 	cd
 	git clone git://github.com/sstephenson/rbenv.git .rbenv
 	echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile
@@ -114,10 +131,8 @@ install_rails_centos () {
 	gem install bundler
 	gem install rails
 
-	# sudo yum -y install epel-release
-	yum -y install epel-release
-	# sudo yum -y install nodejs
-	yum -y install nodejs
+	sudo yum -y install epel-release
+	sudo yum -y install nodejs
 }
 
 install_rails_mac () {
@@ -128,12 +143,22 @@ install_rails_mac () {
 	source ~/.bash_profile
 
 	# Install Ruby
-	rbenv install 2.2.2
-	rbenv global 2.2.2
-	ruby -v
+	if [ $# -gt 0 ] 
+	then
+		rbenv install $1
+		rbenv global $1
+	else
+		rbenv install 2.2.2
+		rbenv global 2.2.2
+	fi
 
 	# Install rails
-	gem install rails -v 4.2.4
+	if [ -z "$2" ] 
+	then
+		gem install rails -v $2
+	else
+		gem install rails -v 4.2.4
+	fi
 }
 
 #=================================================================================
@@ -164,7 +189,7 @@ case $OS in
   'Linux')
     OS='Linux'
     echo $OS
-    set_up_rails_stack_centos
+    set_up_rails_stack_linux
     ;;
   'Darwin') 
     OS='Mac'
