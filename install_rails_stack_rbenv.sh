@@ -7,13 +7,11 @@
 update_ubuntu_system () {
 	# Update your system
 	sudo apt-get update
-	apt-get update
 }
 
 update_centos_system () {
 	# Update your system
 	sudo yum update
-	yum -y update
 }
 
 
