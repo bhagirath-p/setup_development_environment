@@ -14,6 +14,10 @@ update_centos_system () {
 	sudo yum update
 }
 
+update_mac_system () {
+	# Update your system
+	sudo brew update
+}
 
 #=================================================================================
 # GIT INSTALLATION
@@ -32,6 +36,11 @@ install_git_centos () {
 	sudo yum install -y git
 }
 
+install_git_mac () {
+	# Update system
+	update_mac_system
+	brew install -y git
+}
 
 #=================================================================================
 # POSTGRESQL INSTALLATION
@@ -175,6 +184,7 @@ set_up_rails_stack_centos () {
 }
 
 set_up_rails_stack_mac () {
+	install_git_mac
 	install_postgres_mac
 	install_rails_mac
 }
