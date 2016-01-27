@@ -16,7 +16,7 @@ update_centos_system () {
 
 update_mac_system () {
 	# Update your system
-	sudo brew update
+	brew update
 }
 
 #=================================================================================
@@ -62,7 +62,7 @@ install_centos_postgres () {
 }
 
 install_postgres_mac () {
-	sudo brew install postgresql
+	brew install postgresql
 
 	# To have launchd start postgresql at login:
 	ln -sfv /usr/local/opt/postgresql/*plist ~/Library/LaunchAgents
@@ -143,7 +143,7 @@ install_rails_centos () {
 }
 
 install_rails_mac () {
-	sudo brew install rbenv ruby-build
+	brew install rbenv ruby-build
 
 	# Add rbenv to bash so that it loads every time you open a terminal
 	echo 'if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi' >> ~/.bash_profile
