@@ -162,9 +162,9 @@ install_rails_mac () {
 	# Install rails
 	if [ -z "$2" ] 
 	then
-		gem install rails -v $2
+		sudo gem install rails -v $2
 	else
-		gem install rails -v 4.2.4
+		sudo gem install rails -v 4.2.4
 	fi
 }
 
